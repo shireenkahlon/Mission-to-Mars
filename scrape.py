@@ -40,7 +40,6 @@ def mars_news(browser):
     html = browser.html
     news_soup = soup(html, 'html.parser')
     # Add try/except for error handling
-       # Add try/except for error handling
     try:
         slide_elem = news_soup.select_one('div.list_text')
         # Use the parent element to find the first 'a' tag and save it as 'news_title'
@@ -94,20 +93,20 @@ def mars_facts():
 def hemisphere_data(browser):
     url = 'https://data-class-mars-hemispheres.s3.amazonaws.com/Mars_Hemispheres/index.html'
     browser.visit(url)
-    #Create list for hemisphere_image_urls 
+    # Create list for hemisphere_image_urls 
     hemisphere_image_urls = []
     links = browser.find_by_css('a.product-item img')
-    #loop the site to scrape title and image url
+    # Loop the site to scrape title and image url
     for i in range(len(links)):
         html=browser.html
         mars_soup=soup(html,'html.parser')
         hemisphere = {}
         browser.find_by_css('a.product-item img')[i].click()
-        # find the Sample image anchor tag - extract href
+        # Find the Sample image anchor tag - extract href
         try:
             sample_elem = browser.links.find_by_text('Sample').first
             hemisphere['img_url'] = sample_elem['href']
-            # get Hemisphere title
+            # Get Hemisphere title
             hemisphere['title'] = browser.find_by_css('h2.title').text
             # Append hemisphere_image_urls object
             hemisphere_image_urls.append(hemisphere)
